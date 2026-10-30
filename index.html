@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="claude:viewport-fit-sides" content="cover">
-  <title>Diego Alencar Chaves | Sobre</title>
+  <title>Diego Alencar Chaves / Desenvolvedor de Softwares</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%231f5b3e%27/%3E%3Ctext x=%2732%27 y=%2741%27 font-family=%27Georgia,serif%27 font-size=%2726%27 font-weight=%27bold%27 text-anchor=%27middle%27 fill=%27%23f2efe6%27%3EDA%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -679,7 +680,7 @@
   <header class="hero">
     <h1 class="hero-name display">Diego <span>Alencar</span> Chaves</h1>
     <img src="foto.webp" alt="Foto de Diego Alencar Chaves" width="1254" height="1254">
-    <a class="meta status" href="#contato"><span class="dot" aria-hidden="true"></span>Disponível para trabalhos</a>
+    <a class="meta status" href="#contato" data-scroll="contato"><span class="dot" aria-hidden="true"></span>Disponível para trabalhos</a>
   </header>
 
 
@@ -758,10 +759,10 @@
   </div>
 
   <nav class="dock" aria-label="Navegação">
-    <a href="#trajetoria">Trajetória</a>
-    <a href="#atuacao">Atuação</a>
+    <a href="#trajetoria" data-scroll="trajetoria">Trajetória</a>
+    <a href="#atuacao" data-scroll="atuacao">Atuação</a>
     <a href="https://github.com/diergu">GitHub</a>
-    <a class="primary" href="#contato">Contato</a>
+    <a class="primary" href="#contato" data-scroll="contato">Contato</a>
   </nav>
 
   <script>
@@ -779,5 +780,6 @@
       }
     });
   </script>
+  <script>document.querySelectorAll("[data-scroll]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var el=document.getElementById(a.dataset.scroll);if(el){el.scrollIntoView({behavior:"smooth"});}});});</script>
 </body>
 </html>
