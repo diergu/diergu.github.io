@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%231d5a3c%27/%3E%3Ctext x=%2732%27 y=%2741%27 font-family=%27Georgia,serif%27 font-size=%2726%27 font-weight=%27bold%27 text-anchor=%27middle%27 fill=%27%23f2efe6%27%3EDA%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
     /* Layout: a full-bleed hero with the name set huge over the photo, a
        floating dock at the bottom for navigation, then plain sections.
@@ -992,6 +992,54 @@
     .hero .meta.status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
     .hero .meta.status .dot { margin-right: 0; flex: none; }
     @media (max-width: 760px) { .hero .meta.status { left: 16px; } }
+    /* Contact landing: a full-screen dark band right after "Posso ajudar com", channels on the left and a WhatsApp composer on the right. */
+    #contato.lp { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-start; padding-top: clamp(56px, 8vh, 96px); padding-bottom: clamp(64px, 10vh, 112px); color: #f2efe6; }
+    #contato.lp .lp-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+    #contato.lp .lp-kicker { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: #9a978c; margin: 0 0 18px; }
+    #contato.lp .lp-title { font-family: "Playfair Display", Georgia, serif; font-weight: 400; font-size: clamp(3.2rem, 8vw, 6.6rem); line-height: .95; letter-spacing: -0.035em; text-wrap: balance; }
+    #contato.lp .lp-title em { color: #7fb08f; }
+    #contato.lp .lp-lede { margin: 24px 0 0; max-width: 44ch; color: #c9c5b9; font-size: 1.05rem; line-height: 1.6; }
+    #contato.lp .lp-channels { list-style: none; margin: 44px 0 0; padding: 0; border-top: 1px solid #2f2c26; }
+    #contato.lp .lp-channels li { border-bottom: 1px solid #2f2c26; margin: 0; }
+    #contato.lp .ch { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 16px; width: 100%; padding: 20px 8px; text-decoration: none; background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; }
+    #contato.lp .ch::before { content: ""; position: absolute; inset: 0; background: #1d5a3c; transform: scaleY(0); transform-origin: bottom; transition: transform .45s cubic-bezier(.2,.7,.2,1); z-index: -1; }
+    #contato.lp .ch:hover::before, #contato.lp .ch:focus-visible::before { transform: scaleY(1); }
+    #contato.lp .ch:focus-visible { outline: none; }
+    #contato.lp .ch .n { font-size: .75rem; color: #9a978c; letter-spacing: .1em; transition: color .3s; }
+    #contato.lp .ch .t { font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.1; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+    #contato.lp .ch .d { display: block; font-family: "Inter", system-ui, sans-serif; font-size: .85rem; color: #9a978c; margin-top: 4px; transition: color .3s; }
+    #contato.lp .ch .go { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #4a473f; display: grid; place-items: center; transition: transform .45s cubic-bezier(.2,.7,.2,1), background .3s, border-color .3s, color .3s; }
+    #contato.lp .ch .go svg { width: 16px; height: 16px; }
+    #contato.lp .ch:hover .t, #contato.lp .ch:focus-visible .t { transform: translateX(8px); }
+    #contato.lp .ch:hover .n, #contato.lp .ch:hover .d, #contato.lp .ch:focus-visible .n, #contato.lp .ch:focus-visible .d { color: #cfe3d6; }
+    #contato.lp .ch:hover .go, #contato.lp .ch:focus-visible .go { background: #f2efe6; color: #15130f; border-color: #f2efe6; transform: rotate(45deg); }
+    #contato.lp .lp-composer { background: #1d1b17; border: 1px solid #2f2c26; border-radius: 22px; padding: clamp(22px, 3vw, 34px); }
+    #contato.lp .lp-h { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: 1.6rem; line-height: 1.15; }
+    #contato.lp .lp-sub { color: #9a978c; font-size: .9rem; margin: 6px 0 0; }
+    #contato.lp .field { margin-top: 20px; }
+    #contato.lp .field label, #contato.lp .field .lbl { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9a978c; margin-bottom: 8px; }
+    #contato.lp .field input, #contato.lp .field textarea { width: 100%; background: #15130f; border: 1px solid #3a372f; border-radius: 12px; color: #f2efe6; font: inherit; padding: 12px 14px; transition: border-color .25s, box-shadow .25s; }
+    #contato.lp .field textarea { min-height: 128px; resize: vertical; }
+    #contato.lp .field input:focus, #contato.lp .field textarea:focus { outline: none; border-color: #7fb08f; box-shadow: 0 0 0 3px rgba(127,176,143,.18); }
+    #contato.lp .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    #contato.lp .chips button { background: transparent; color: #f2efe6; border: 1px solid #4a473f; border-radius: 999px; padding: 8px 16px; font: 500 .85rem "Inter", system-ui, sans-serif; cursor: pointer; transition: background .25s, border-color .25s, transform .25s; }
+    #contato.lp .chips button:hover { transform: translateY(-2px); }
+    #contato.lp .chips button[aria-pressed="true"] { background: #1d5a3c; border-color: #1d5a3c; }
+    #contato.lp .send { margin-top: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: #1d5a3c; color: #f2efe6; text-decoration: none; font-weight: 600; letter-spacing: .04em; transition: background .3s, color .3s, transform .3s; }
+    #contato.lp .send:hover { background: #f2efe6; color: #15130f; transform: translateY(-2px); }
+    #contato.lp .send svg { width: 18px; height: 18px; }
+    #contato.lp .hint { margin: 12px 0 0; font-size: .8rem; color: #9a978c; text-align: center; }
+    #contato.lp .lp-toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: #f2efe6; color: #15130f; padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: .9rem; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; z-index: 95; }
+    #contato.lp .lp-toast.show { opacity: 1; transform: translate(-50%, 0); }
+    #contato.lp .rise { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+    #contato.lp.in .rise { opacity: 1; transform: none; }
+    @media (max-width: 860px) {
+      #contato.lp { min-height: 0; }
+      #contato.lp .lp-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #contato.lp .rise { opacity: 1; transform: none; transition: none; }
+    }
 </style>
 </head>
 <body>
@@ -1003,7 +1051,7 @@
         <li><a data-go="projetos" role="link" tabindex="0" data-close="1"><span class="n">01</span><span class="t">Projetos</span></a></li>
         <li><a data-go="atuacao" role="link" tabindex="0" data-close="1"><span class="n">02</span><span class="t">Atuação</span></a></li>
         <li><a href="https://github.com/diergu" target="_blank" rel="noopener"><span class="n">03</span><span class="t">GitHub</span></a></li>
-        <li><a href="contato.html"><span class="n">04</span><span class="t">Contato</span></a></li>
+        <li><a data-go="contato" role="link" tabindex="0" data-close="1"><span class="n">04</span><span class="t">Contato</span></a></li>
       </ol>
       <p class="menu-sub">Vamos transformar uma ideia em um sistema real.</p>
     </div>
@@ -1011,7 +1059,7 @@
   <header class="hero">
     <h1 class="hero-name display">Diego <span>Alencar</span> Chaves</h1>
     <img src="foto.webp" alt="Foto de Diego Alencar Chaves" width="1254" height="1254">
-    <a class="meta status" href="contato.html"><span class="dot" aria-hidden="true"></span>Disponível para trabalhos</a>
+    <a class="meta status" data-go="contato" role="link" tabindex="0"><span class="dot" aria-hidden="true"></span>Disponível para trabalhos</a>
   </header>
 
 
@@ -1095,17 +1143,33 @@
     </section>
 
 
-    <section class="contact cv2" id="contato">
-      <div class="contact-title">Pronto para construir o <em>próximo sistema?</em></div>
-      <div class="contact-line">
-        <button class="circle" id="copy" type="button"><span>Vamos<br>conversar</span><span class="arrow" aria-hidden="true">↗</span></button>
+    <section class="lp" id="contato">
+      <div class="lp-grid">
+        <div class="lp-main">
+          <p class="lp-kicker rise">Contato</p>
+          <div class="lp-title rise">Vamos <em>conversar.</em></div>
+          <p class="lp-lede rise">Tem uma vaga, um projeto ou uma ideia? Escolha o canal que preferir, ou escreva uma mensagem que já abre pronta no WhatsApp.</p>
+          <ul class="lp-channels">
+            <li class="rise"><a class="ch" href="https://wa.me/5521995408732" target="_blank" rel="noopener"><span class="n">01</span><span class="t">WhatsApp<span class="d">Conversa direta, resposta mais rápida</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rise"><button class="ch" id="mailbtn" type="button"><span class="n">02</span><span class="t">E-mail<span class="d">Clique para copiar o endereço</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></span></button></li>
+            <li class="rise"><a class="ch" href="curriculo_novo.pdf" target="_blank" rel="noopener"><span class="n">03</span><span class="t">Currículo<span class="d">PDF com formação, experiência e projetos</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rise"><a class="ch" href="https://github.com/diergu" target="_blank" rel="noopener"><span class="n">04</span><span class="t">GitHub<span class="d">Código dos projetos</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rise"><a class="ch" href="https://linkedin.com/in/diegoalencarchaves" target="_blank" rel="noopener"><span class="n">05</span><span class="t">LinkedIn<span class="d">Perfil profissional</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+          </ul>
+        </div>
+        <aside class="lp-composer rise" aria-labelledby="compTitle">
+          <div class="lp-h">Escreva uma mensagem</div>
+          <p class="lp-sub" id="compTitle">Ela abre pronta no WhatsApp, é só enviar.</p>
+          <div class="field"><label for="lpNome">Seu nome</label><input id="lpNome" type="text" autocomplete="name" placeholder="Como posso te chamar?"></div>
+          <div class="field"><span class="lbl" id="assuntoLbl">Assunto</span>
+            <div class="chips" role="group" aria-labelledby="assuntoLbl"><button type="button" aria-pressed="true">Estágio</button><button type="button" aria-pressed="false">Projeto</button><button type="button" aria-pressed="false">Outro</button></div>
+          </div>
+          <div class="field"><label for="lpMsg">Mensagem</label><textarea id="lpMsg" placeholder="Conte um pouco sobre a vaga ou o projeto."></textarea></div>
+          <a class="send" id="lpSend" href="https://wa.me/5521995408732" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 3.2 16.7L2 22l5.4-1.2A11 11 0 0 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-3.2.7.7-3.1-.2-.3A9 9 0 1 1 12 20.5Zm5-6.7c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1l-.9 1.1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.4.1-.2 0-.3 0-.4l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3Z"/></svg>Enviar pelo WhatsApp</a>
+          <p class="hint">Nada é enviado por este site, a conversa acontece no seu WhatsApp.</p>
+        </aside>
       </div>
-      <div class="address-row">
-        <a class="btn-outline" href="https://wa.me/5521995408732" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 16.7L2 22l5.4-1.2A11 11 0 0 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-3.2.7.7-3.1-.2-.3A9 9 0 1 1 12 20.5Zm5-6.7c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1l-.9 1.1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.4.1-.2 0-.3 0-.4l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3Z" fill="currentColor"/></svg>WhatsApp</a>
-        <button class="btn-outline" id="mailbtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Copiar e-mail</button>
-        <a class="btn-outline" href="curriculo_novo.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Baixar currículo</a>
-        <p class="copied" id="status" role="status" aria-live="polite"></p>
-      </div>
+      <div class="lp-toast" id="status" role="status" aria-live="polite"></div>
     </section>
   </div>
 
@@ -1126,23 +1190,58 @@
         <a href="https://linkedin.com/in/diegoalencarchaves">LinkedIn</a>
       </nav>
     </div>
-  </footer>  <script>
+  </footer>
+  <script>
     // The address is kept in the script only, so it is copied and never shown as text.
     const CONTACT_EMAIL = "diegoalencr@hotmail.com";
-    const copyBtn = document.getElementById("copy");
+    const PHONE = "5521995408732";
     const status = document.getElementById("status");
-
-    async function copyMail() {
-      try {
-        await navigator.clipboard.writeText(CONTACT_EMAIL);
-        status.textContent = "E-mail copiado.";
-      } catch (e) {
-        status.textContent = "Não foi possível copiar neste navegador.";
-      }
+    let statusTimer;
+    function say(text) {
+      status.textContent = text;
+      status.classList.add("show");
+      clearTimeout(statusTimer);
+      statusTimer = setTimeout(() => status.classList.remove("show"), 2200);
     }
-    copyBtn.addEventListener("click", copyMail);
-    document.getElementById("mailbtn").addEventListener("click", copyMail);
+    document.getElementById("mailbtn").addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(CONTACT_EMAIL); say("E-mail copiado."); }
+      catch (e) { say("Não foi possível copiar neste navegador."); }
+    });
+
+    // Build the WhatsApp link from the form so the message opens ready to send.
+    (function () {
+      const nome = document.getElementById("lpNome");
+      const msg = document.getElementById("lpMsg");
+      const send = document.getElementById("lpSend");
+      const chips = document.querySelectorAll("#contato .chips button");
+      let assunto = "Estágio";
+      function update() {
+        const parts = ["Olá, Diego!"];
+        if (nome.value.trim()) parts.push("Aqui é " + nome.value.trim() + ".");
+        parts.push("Assunto: " + assunto + ".");
+        if (msg.value.trim()) parts.push("", msg.value.trim());
+        send.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(parts.join("\n"));
+      }
+      chips.forEach((b) => b.addEventListener("click", () => {
+        chips.forEach((c) => c.setAttribute("aria-pressed", "false"));
+        b.setAttribute("aria-pressed", "true");
+        assunto = b.textContent;
+        update();
+      }));
+      nome.addEventListener("input", update);
+      msg.addEventListener("input", update);
+      update();
+
+      // Stagger the entrance once the band scrolls into view.
+      const lp = document.getElementById("contato");
+      lp.querySelectorAll(".rise").forEach((el, i) => { el.style.transitionDelay = (i * 0.07) + "s"; });
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { lp.classList.add("in"); io.disconnect(); } }, { threshold: 0.15 });
+        io.observe(lp);
+      } else lp.classList.add("in");
+    })();
   </script>
+
   <script>(function(){var el=document.getElementById("clock");function tick(){try{el.textContent=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(new Date())+" BRT";}catch(e){el.textContent="";}}tick();setInterval(tick,1000);})();</script>
 <script>
 (function(){
