@@ -961,6 +961,10 @@
     .hero-name .ch.cur::after { content: ""; position: absolute; right: -0.09em; top: 0.08em; bottom: 0.04em; width: 0.06em; background: #1f5b3e; visibility: visible; }
     .hero-name .ch.done::after { animation: caret 1s steps(1) infinite; }
     @keyframes caret { 50% { opacity: 0; } }
+    /* PROJETOS decrypt effect. */
+    .projects .label { cursor: default; white-space: nowrap; }
+    .projects .label .sc { display: inline-block; text-align: center; transition: color .2s; }
+    .projects .label .sc.x { color: #7fb08f; }
 </style>
 </head>
 <body>
@@ -1213,6 +1217,49 @@
     setTimeout(step, 85 + Math.random() * 60 + pause);
   }
   setTimeout(step, 500);
+})();
+</script>
+<script>
+// "Decrypt" effect on the PROJETOS heading: random glyphs settle into the real letters.
+(function () {
+  var el = document.querySelector(".projects .label");
+  if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var word = el.textContent.trim().toUpperCase();
+  var glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@*/<>=+";
+  el.setAttribute("aria-label", word);
+  el.textContent = "";
+  var cells = word.split("").map(function (c) {
+    var s = document.createElement("span");
+    s.className = "sc"; s.setAttribute("aria-hidden", "true"); s.textContent = c;
+    el.appendChild(s);
+    return s;
+  });
+  // Lock each cell to its final letter's width so the word never jitters.
+  function lock() { cells.forEach(function (s, i) { s.style.width = ""; s.textContent = word[i]; s.style.width = s.getBoundingClientRect().width + "px"; }); }
+  var running = false;
+  function run() {
+    if (running) return;
+    running = true;
+    lock();
+    var frame = 0, total = 26 + word.length * 4;
+    (function tick() {
+      cells.forEach(function (s, i) {
+        var settle = 14 + i * 4;
+        if (frame >= settle) { s.textContent = word[i]; s.classList.remove("x"); }
+        else { s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)]; s.classList.add("x"); }
+      });
+      if (++frame <= total) setTimeout(tick, 45); else running = false;
+    })();
+  }
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
+    lock();
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { run(); io.disconnect(); } }, { threshold: 0.6 });
+      io.observe(el);
+    } else run();
+    el.addEventListener("mouseenter", run);
+    window.addEventListener("resize", function () { if (!running) lock(); });
+  });
 })();
 </script>
 </body>
