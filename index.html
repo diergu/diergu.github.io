@@ -1044,6 +1044,12 @@
     #contato.lp .lp-grid { align-items: end; }
     #contato.lp .lp-grid > .lp-channels { margin-top: 0; }
     @media (max-width: 860px) { #contato.lp .lp-grid > .lp-channels { margin-top: 40px; } }
+    /* Compact footer: two columns, smaller type, no social links. */
+    footer.site-foot { grid-template-columns: 1fr 1fr; padding-top: 16px; padding-bottom: 18px; font-size: 0.78rem; border-top: 1px solid #2f2c26 !important; }
+    footer.site-foot .foot-col { gap: 4px; }
+    footer.site-foot .foot-label { font-size: 0.64rem; }
+    footer.site-foot .foot-center { text-align: right; align-items: flex-end; }
+    @media (max-width: 760px) { footer.site-foot { grid-template-columns: 1fr 1fr; gap: 12px; } footer.site-foot .foot-center { text-align: right; align-items: flex-end; } }
 </style>
 </head>
 <body>
@@ -1175,13 +1181,6 @@
     <div class="foot-col foot-center">
       <span class="foot-label">Hora local · Rio de Janeiro</span>
       <span class="foot-value" id="clock">--:--:-- BRT</span>
-    </div>
-    <div class="foot-col foot-right">
-      <span class="foot-label">Redes</span>
-      <nav class="foot-links">
-        <a href="https://github.com/diergu">GitHub</a>
-        <a href="https://linkedin.com/in/diegoalencarchaves">LinkedIn</a>
-      </nav>
     </div>
   </footer>
   <script>
