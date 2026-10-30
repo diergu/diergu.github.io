@@ -1040,6 +1040,10 @@
     @media (prefers-reduced-motion: reduce) {
       #contato.lp .rise { opacity: 1; transform: none; transition: none; }
     }
+    /* Contact without the composer: headline on the left, channel list on the right. */
+    #contato.lp .lp-grid { align-items: end; }
+    #contato.lp .lp-grid > .lp-channels { margin-top: 0; }
+    @media (max-width: 860px) { #contato.lp .lp-grid > .lp-channels { margin-top: 40px; } }
 </style>
 </head>
 <body>
@@ -1148,7 +1152,8 @@
         <div class="lp-main">
           <p class="lp-kicker rise">Contato</p>
           <div class="lp-title rise">Vamos <em>conversar.</em></div>
-          <p class="lp-lede rise">Tem uma vaga, um projeto ou uma ideia? Escolha o canal que preferir, ou escreva uma mensagem que já abre pronta no WhatsApp.</p>
+          <p class="lp-lede rise">Tem uma vaga, um projeto ou uma ideia? Escolha o canal que preferir.</p>
+        </div>
           <ul class="lp-channels">
             <li class="rise"><a class="ch" href="https://wa.me/5521995408732" target="_blank" rel="noopener"><span class="n">01</span><span class="t">WhatsApp<span class="d">Conversa direta, resposta mais rápida</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
             <li class="rise"><button class="ch" id="mailbtn" type="button"><span class="n">02</span><span class="t">E-mail<span class="d">Clique para copiar o endereço</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></span></button></li>
@@ -1156,18 +1161,6 @@
             <li class="rise"><a class="ch" href="https://github.com/diergu" target="_blank" rel="noopener"><span class="n">04</span><span class="t">GitHub<span class="d">Código dos projetos</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
             <li class="rise"><a class="ch" href="https://linkedin.com/in/diegoalencarchaves" target="_blank" rel="noopener"><span class="n">05</span><span class="t">LinkedIn<span class="d">Perfil profissional</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
           </ul>
-        </div>
-        <aside class="lp-composer rise" aria-labelledby="compTitle">
-          <div class="lp-h">Escreva uma mensagem</div>
-          <p class="lp-sub" id="compTitle">Ela abre pronta no WhatsApp, é só enviar.</p>
-          <div class="field"><label for="lpNome">Seu nome</label><input id="lpNome" type="text" autocomplete="name" placeholder="Como posso te chamar?"></div>
-          <div class="field"><span class="lbl" id="assuntoLbl">Assunto</span>
-            <div class="chips" role="group" aria-labelledby="assuntoLbl"><button type="button" aria-pressed="true">Estágio</button><button type="button" aria-pressed="false">Projeto</button><button type="button" aria-pressed="false">Outro</button></div>
-          </div>
-          <div class="field"><label for="lpMsg">Mensagem</label><textarea id="lpMsg" placeholder="Conte um pouco sobre a vaga ou o projeto."></textarea></div>
-          <a class="send" id="lpSend" href="https://wa.me/5521995408732" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 3.2 16.7L2 22l5.4-1.2A11 11 0 0 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-3.2.7.7-3.1-.2-.3A9 9 0 1 1 12 20.5Zm5-6.7c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1l-.9 1.1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.4.1-.2 0-.3 0-.4l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3Z"/></svg>Enviar pelo WhatsApp</a>
-          <p class="hint">Nada é enviado por este site, a conversa acontece no seu WhatsApp.</p>
-        </aside>
       </div>
       <div class="lp-toast" id="status" role="status" aria-live="polite"></div>
     </section>
@@ -1208,30 +1201,7 @@
       catch (e) { say("Não foi possível copiar neste navegador."); }
     });
 
-    // Build the WhatsApp link from the form so the message opens ready to send.
     (function () {
-      const nome = document.getElementById("lpNome");
-      const msg = document.getElementById("lpMsg");
-      const send = document.getElementById("lpSend");
-      const chips = document.querySelectorAll("#contato .chips button");
-      let assunto = "Estágio";
-      function update() {
-        const parts = ["Olá, Diego!"];
-        if (nome.value.trim()) parts.push("Aqui é " + nome.value.trim() + ".");
-        parts.push("Assunto: " + assunto + ".");
-        if (msg.value.trim()) parts.push("", msg.value.trim());
-        send.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(parts.join("\n"));
-      }
-      chips.forEach((b) => b.addEventListener("click", () => {
-        chips.forEach((c) => c.setAttribute("aria-pressed", "false"));
-        b.setAttribute("aria-pressed", "true");
-        assunto = b.textContent;
-        update();
-      }));
-      nome.addEventListener("input", update);
-      msg.addEventListener("input", update);
-      update();
-
       // Stagger the entrance once the band scrolls into view.
       const lp = document.getElementById("contato");
       lp.querySelectorAll(".rise").forEach((el, i) => { el.style.transitionDelay = (i * 0.07) + "s"; });
