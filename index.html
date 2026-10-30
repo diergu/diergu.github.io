@@ -1170,5 +1170,8 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeBox(); });
 })();
 </script>
-</body>
+<script>
+// Keep the address bar clean: if the page opens with a #section, scroll there and drop the hash.
+(function(){ if(!location.hash) return; var el=document.getElementById(location.hash.slice(1)); try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} if(el) setTimeout(function(){ el.scrollIntoView(); },0); })();
+</script></body>
 </html>
