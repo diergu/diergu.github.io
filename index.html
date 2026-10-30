@@ -693,6 +693,26 @@
     .menu-list .t { font-family: "Playfair Display", Georgia, serif; font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 700; line-height: 1; text-transform: uppercase; }
     .menu-sub { margin-top: 22px; font-size: 0.9rem; color: #8a877e; }
     /* Phone: the old top pill is no longer used; keep the menu button clear of content. */
+    /* Projects: alternating rows, each with a laptop frame and a short description. */
+    .projects { background: #15130f; color: #f2efe6; margin-top: 88px; padding: 56px 0 24px; }
+    .projects .label { color: #8a877e; }
+    .proj { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; padding: 56px 0; border-top: 1px solid #2c2a25; }
+    .proj.rev { grid-template-columns: 1.25fr 1fr; }
+    .proj.rev .proj-text { order: 2; }
+    .proj.rev .laptop { order: 1; }
+    .proj-idx { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8a877e; margin-bottom: 14px; }
+    .proj h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; margin-bottom: 18px; }
+    .proj-desc { color: #b9b5aa; font-size: 1rem; line-height: 1.6; margin-bottom: 22px; max-width: 46ch; }
+    .proj-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .proj-tags li { font-size: 0.78rem; padding: 6px 12px; border: 1px solid #4a473f; border-radius: 999px; color: #d6d2c6; }
+    .laptop { margin: 0; }
+    .laptop .lid { background: #1c1b18; border-radius: 16px 16px 0 0; padding: 14px 14px 10px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); }
+    .laptop .lid img { display: block; width: 100%; height: auto; border-radius: 6px; background: #ffffff; }
+    .laptop .base { height: 14px; background: linear-gradient(#d6d3ca, #9f9c93); border-radius: 0 0 14px 14px; margin: 0 -4%; }
+    @media (max-width: 760px) {
+      .proj, .proj.rev { grid-template-columns: 1fr; gap: 28px; padding: 40px 0; }
+      .proj.rev .proj-text, .proj.rev .laptop { order: 0; }
+    }
     /* Full-width bands use 100vw, which counts the scrollbar; clip the overflow
        so the page never shows a sideways scrollbar. */
     html, body { overflow-x: clip; }
@@ -900,7 +920,7 @@
     <div class="menu-inner">
       <p class="menu-label">Navegação</p>
       <ol class="menu-list">
-        <li><a href="#trajetoria" data-close="1"><span class="n">01</span><span class="t">Trajetória</span></a></li>
+        <li><a href="#projetos" data-close="1"><span class="n">01</span><span class="t">Projetos</span></a></li>
         <li><a href="#atuacao" data-close="1"><span class="n">02</span><span class="t">Atuação</span></a></li>
         <li><a href="https://github.com/diergu" target="_blank" rel="noopener"><span class="n">03</span><span class="t">GitHub</span></a></li>
         <li><a href="#contato" data-close="1"><span class="n">04</span><span class="t">Contato</span></a></li>
@@ -916,25 +936,47 @@
 
 
   <div class="wrap">
-    <section id="trajetoria">
-      <p class="label">Trajetória</p>
-      <div class="cards">
-        <div class="tl-row">
-          <span class="tl-year">2025</span>
-          <h3 class="tl-title">Análise e Desenvolvimento de Sistemas</h3>
-          <p class="tl-text">Graduação na Pontifícia Universidade Católica de Minas Gerais.</p>
+    <section id="projetos" class="projects">
+      <p class="label">Projetos</p>
+
+      <article class="proj">
+        <div class="proj-text">
+          <p class="proj-idx">01 / 03 · 2025 · Projeto pessoal</p>
+          <h3>Sistema de Gerenciamento de Tarefas</h3>
+          <p class="proj-desc">Aplicação full stack para gerenciar tarefas: criar, definir prazo e responsável, mudar o status (pendente, em andamento ou concluída), filtrar e excluir. Backend em Spring Boot e frontend em Angular, para praticar a integração entre a API REST e a SPA.</p>
+          <ul class="proj-tags"><li>Java 17</li><li>Spring Boot</li><li>Angular</li><li>MySQL</li><li>Bootstrap</li></ul>
         </div>
-        <div class="tl-row">
-          <span class="tl-year">2025</span>
-          <h3 class="tl-title">Projetos em Java e Angular</h3>
-          <p class="tl-text">API REST com Spring Boot, banco MySQL e PostgreSQL, e interface em Angular, em projetos pessoais e acadêmicos.</p>
+        <figure class="laptop">
+          <div class="lid"><img src="maquete-gestao-tarefas.png" alt="Ilustração do Sistema de Gerenciamento de Tarefas"></div>
+          <div class="base"></div>
+        </figure>
+      </article>
+
+      <article class="proj rev">
+        <div class="proj-text">
+          <p class="proj-idx">02 / 03 · 2026 · Projeto acadêmico</p>
+          <h3>API de Cadastro de Clientes</h3>
+          <p class="proj-desc">API REST para cadastro de clientes, com validação de dados, tratamento de exceções e regras de unicidade para CPF e e-mail. Estudo de Spring Data JPA com PostgreSQL, com endpoints de listar, buscar, cadastrar, atualizar e remover.</p>
+          <ul class="proj-tags"><li>Java 17</li><li>Spring Boot</li><li>PostgreSQL</li><li>JPA / Hibernate</li><li>Maven</li></ul>
         </div>
-        <div class="tl-row">
-          <span class="tl-year">2026</span>
-          <h3 class="tl-title">Extensionista de Dados · HUB de Inteligência de Dados</h3>
-          <p class="tl-text">ICEI, PUC Minas. Modelagem de bancos, fluxos de ETL/ELT e dashboards analíticos.</p>
+        <figure class="laptop">
+          <div class="lid"><img src="maquete-api-clientes.png" alt="Ilustração da API de Cadastro de Clientes"></div>
+          <div class="base"></div>
+        </figure>
+      </article>
+
+      <article class="proj">
+        <div class="proj-text">
+          <p class="proj-idx">03 / 03 · 2025 · Projeto pessoal</p>
+          <h3>Dashboard de Controle de Estoque</h3>
+          <p class="proj-desc">SPA em Angular para controlar o estoque: dashboard com indicadores (total de itens, valor em estoque e itens abaixo do mínimo), tabela com ordenação e filtro, cadastro de produtos e rotas protegidas por guard, com lazy loading.</p>
+          <ul class="proj-tags"><li>Angular 17</li><li>Angular Material</li><li>TypeScript</li><li>json-server</li></ul>
         </div>
-      </div>
+        <figure class="laptop">
+          <div class="lid"><img src="maquete-dashboard-estoque.png" alt="Ilustração do Dashboard de Controle de Estoque"></div>
+          <div class="base"></div>
+        </figure>
+      </article>
     </section>
 
     <section id="atuacao">
