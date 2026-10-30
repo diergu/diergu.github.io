@@ -965,6 +965,29 @@
     .projects .label { cursor: default; white-space: nowrap; }
     .projects .label .sc { display: inline-block; text-align: center; transition: color .2s; }
     .projects .label .sc.x { color: #7fb08f; }
+    /* Contact v2: kicker, big headline, a rule with the round button sitting on it, even pill buttons. */
+    #contato.cv2 { padding-top: 96px; padding-bottom: 72px; }
+    #contato.cv2 .contact-kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: #9a978c; margin: 0 0 28px; max-width: none; }
+    #contato.cv2 .contact-kicker .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #3fbf7f; box-shadow: 0 0 0 0 rgba(63, 191, 127, .6); animation: pulse 2s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(63, 191, 127, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 191, 127, 0); } }
+    #contato.cv2 .contact-title { font-size: clamp(2.6rem, 6.4vw, 5.4rem); line-height: 1.02; letter-spacing: -0.03em; max-width: 17ch; text-wrap: balance; }
+    #contato.cv2 .contact-title em { font-style: italic; color: #7fb08f; }
+    #contato.cv2 .contact-line { position: relative; height: 1px; background: #3a372f; margin: 88px 0 64px; }
+    #contato.cv2 .circle { position: absolute; right: 8%; top: 50%; width: 168px; height: 168px; padding: 0; flex-direction: column; gap: 6px; font-size: 0.82rem; line-height: 1.25; letter-spacing: 0.08em; transform: translate(var(--mx, 0px), calc(-50% + var(--my, 0px))); transition: transform .35s cubic-bezier(.2,.7,.2,1), background .4s, color .4s; box-shadow: 0 20px 50px rgba(29, 90, 60, .35); }
+    #contato.cv2 .circle:hover { transform: translate(var(--mx, 0px), calc(-50% + var(--my, 0px))) scale(1.06); }
+    #contato.cv2 .circle .arrow { margin: 0; font-size: 1.1rem; transition: transform .4s; }
+    #contato.cv2 .circle:hover .arrow { transform: translate(3px, -3px); }
+    #contato.cv2 .address-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    #contato.cv2 .btn-outline { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; line-height: 1; border: 1px solid #4a473f; color: #e9e6dc; transition: background .3s, border-color .3s, color .3s, transform .3s; }
+    #contato.cv2 .btn-outline svg { width: 16px; height: 16px; flex: none; }
+    #contato.cv2 .btn-outline:hover { background: #1d5a3c; border-color: #1d5a3c; color: #f2efe6; transform: translateY(-2px); }
+    #contato.cv2 .copied { margin: 0 0 0 8px; font-size: 0.85rem; }
+    @media (max-width: 760px) {
+      #contato.cv2 { padding-top: 64px; padding-bottom: 48px; }
+      #contato.cv2 .contact-line { margin: 80px 0 72px; }
+      #contato.cv2 .circle { right: 0; width: 128px; height: 128px; font-size: 0.7rem; }
+      #contato.cv2 .btn-outline { flex: 1 1 100%; justify-content: center; }
+    }
 </style>
 </head>
 <body>
@@ -1068,17 +1091,18 @@
     </section>
 
 
-    <section class="contact" id="contato">
-      <div class="contact-title">Pronto para construir o próximo sistema?</div>
-      <div class="contact-row">
-        <button class="circle" id="copy" type="button">Vamos conversar <span class="arrow" aria-hidden="true">↗</span></button>
+    <section class="contact cv2" id="contato">
+      <p class="contact-kicker"><span class="dot" aria-hidden="true"></span>Disponível para estágio e projetos · Rio de Janeiro ou remoto</p>
+      <div class="contact-title">Pronto para construir o <em>próximo sistema?</em></div>
+      <div class="contact-line">
+        <button class="circle" id="copy" type="button"><span>Vamos<br>conversar</span><span class="arrow" aria-hidden="true">↗</span></button>
       </div>
       <div class="address-row">
-        <a class="btn-outline" href="https://wa.me/5521995408732" target="_blank" rel="noopener">WhatsApp</a>
-        <button class="btn-outline" id="mailbtn" type="button">Copiar e-mail</button>
-        <a class="btn-outline" href="curriculo_novo.pdf" target="_blank" rel="noopener">Baixar currículo</a>
+        <a class="btn-outline" href="https://wa.me/5521995408732" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 16.7L2 22l5.4-1.2A11 11 0 0 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-3.2.7.7-3.1-.2-.3A9 9 0 1 1 12 20.5Zm5-6.7c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1l-.9 1.1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.4.1-.2 0-.3 0-.4l-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3Z" fill="currentColor"/></svg>WhatsApp</a>
+        <button class="btn-outline" id="mailbtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Copiar e-mail</button>
+        <a class="btn-outline" href="curriculo_novo.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Baixar currículo</a>
+        <p class="copied" id="status" role="status" aria-live="polite"></p>
       </div>
-      <p class="copied" id="status" role="status" aria-live="polite"></p>
     </section>
   </div>
 
@@ -1260,6 +1284,22 @@
     el.addEventListener("mouseenter", run);
     window.addEventListener("resize", function () { if (!running) lock(); });
   });
+})();
+</script>
+<script>
+// The round contact button leans toward the pointer when it comes close.
+(function () {
+  var c = document.querySelector("#contato .circle");
+  if (!c || !window.matchMedia("(pointer: fine)").matches) return;
+  var zone = document.getElementById("contato");
+  zone.addEventListener("mousemove", function (e) {
+    var r = c.getBoundingClientRect();
+    var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+    var near = Math.hypot(dx, dy) < 220;
+    c.style.setProperty("--mx", (near ? dx * 0.25 : 0) + "px");
+    c.style.setProperty("--my", (near ? dy * 0.25 : 0) + "px");
+  });
+  zone.addEventListener("mouseleave", function () { c.style.setProperty("--mx", "0px"); c.style.setProperty("--my", "0px"); });
 })();
 </script>
 </body>
