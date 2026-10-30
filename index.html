@@ -954,6 +954,13 @@
       .proj-text > *, .laptop, .laptop .screen, .laptop .device, .laptop .screen img { transition: none !important; transform: none !important; opacity: 1 !important; clip-path: none !important; }
     }
     [data-go] { cursor: pointer; }
+    /* Hero name typing effect. */
+    .hero-name > .ch { color: var(--ink); }
+    .hero-name.typing .ch { visibility: hidden; position: relative; }
+    .hero-name.typing .ch.on { visibility: visible; }
+    .hero-name .ch.cur::after { content: ""; position: absolute; right: -0.09em; top: 0.08em; bottom: 0.04em; width: 0.06em; background: #1f5b3e; visibility: visible; }
+    .hero-name .ch.done::after { animation: caret 1s steps(1) infinite; }
+    @keyframes caret { 50% { opacity: 0; } }
 </style>
 </head>
 <body>
@@ -1173,5 +1180,40 @@
 <script>
 // Keep the address bar clean: if the page opens with a #section, scroll there and drop the hash.
 (function(){ if(!location.hash) return; var el=document.getElementById(location.hash.slice(1)); try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} if(el) setTimeout(function(){ el.scrollIntoView(); },0); })();
-</script></body>
+</script><script>
+// Typing effect on the hero name. Every letter is already in place (hidden), so the layout never jumps.
+(function () {
+  var h = document.querySelector(".hero-name");
+  if (!h || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  h.setAttribute("aria-label", h.textContent.replace(/\s+/g, " ").trim());
+  var chars = [];
+  (function split(node) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+      if (n.nodeType === 1) { n.setAttribute("aria-hidden", "true"); split(n); return; }
+      if (n.nodeType !== 3) return;
+      var frag = document.createDocumentFragment();
+      n.textContent.split("").forEach(function (c) {
+        if (/\s/.test(c)) { frag.appendChild(document.createTextNode(c)); return; }
+        var s = document.createElement("span");
+        s.className = "ch"; s.setAttribute("aria-hidden", "true"); s.textContent = c;
+        frag.appendChild(s); chars.push(s);
+      });
+      node.replaceChild(frag, n);
+    });
+  })(h);
+  h.classList.add("typing");
+  var i = 0;
+  function step() {
+    if (i > 0) chars[i - 1].classList.remove("cur");
+    if (i >= chars.length) { chars[chars.length - 1].classList.add("cur", "done"); return; }
+    chars[i].classList.add("on", "cur");
+    var next = chars[i + 1];
+    var pause = next && (next.parentNode !== chars[i].parentNode || (next.previousSibling && next.previousSibling.nodeType === 3)) ? 260 : 0;
+    i++;
+    setTimeout(step, 85 + Math.random() * 60 + pause);
+  }
+  setTimeout(step, 500);
+})();
+</script>
+</body>
 </html>
