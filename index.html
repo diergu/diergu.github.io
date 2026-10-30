@@ -1277,8 +1277,8 @@
 })();
 </script>
 <script>
-// Keep the address bar clean: if the page opens with a #section, scroll there and drop the hash.
-(function(){ if(!location.hash) return; var el=document.getElementById(location.hash.slice(1)); try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} if(el) setTimeout(function(){ el.scrollIntoView(); },0); })();
+// Always open at the top of the page: drop any #section from the address and ignore the browser's remembered scroll position.
+(function(){ try{ if("scrollRestoration" in history) history.scrollRestoration="manual"; if(location.hash) history.replaceState(null,"",location.pathname+location.search); }catch(e){} window.scrollTo(0,0); window.addEventListener("load",function(){ window.scrollTo(0,0); }); window.addEventListener("pageshow",function(){ window.scrollTo(0,0); }); })();
 </script><script>
 // Typing effect on the hero name. Every letter is already in place (hidden), so the layout never jumps.
 (function () {
