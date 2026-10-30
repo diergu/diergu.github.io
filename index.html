@@ -667,6 +667,12 @@
     .dock-pill { background: var(--ink); border-radius: 999px; width: auto; margin: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); padding: 10px 14px; display: flex; justify-content: space-evenly; gap: 6px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
     .dock a { color: var(--paper) !important; }
 
+    /* Phone: keep the top menu inside the screen. */
+    @media (max-width: 560px) {
+      .dock-pill { margin: 0 12px; padding: 6px; justify-content: space-between; gap: 0; }
+      .dock a { font-size: 0.78rem !important; padding: 8px 9px !important; }
+    }
+
     /* Full-width bands use 100vw, which counts the scrollbar; clip the overflow
        so the page never shows a sideways scrollbar. */
     html, body { overflow-x: clip; }
