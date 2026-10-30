@@ -953,6 +953,7 @@
     @media (prefers-reduced-motion: reduce) {
       .proj-text > *, .laptop, .laptop .screen, .laptop .device, .laptop .screen img { transition: none !important; transform: none !important; opacity: 1 !important; clip-path: none !important; }
     }
+    [data-go] { cursor: pointer; }
 </style>
 </head>
 <body>
@@ -961,10 +962,10 @@
     <div class="menu-inner">
       <p class="menu-label">Navegação</p>
       <ol class="menu-list">
-        <li><a href="#projetos" data-close="1"><span class="n">01</span><span class="t">Projetos</span></a></li>
-        <li><a href="#atuacao" data-close="1"><span class="n">02</span><span class="t">Atuação</span></a></li>
+        <li><a data-go="projetos" role="link" tabindex="0" data-close="1"><span class="n">01</span><span class="t">Projetos</span></a></li>
+        <li><a data-go="atuacao" role="link" tabindex="0" data-close="1"><span class="n">02</span><span class="t">Atuação</span></a></li>
         <li><a href="https://github.com/diergu" target="_blank" rel="noopener"><span class="n">03</span><span class="t">GitHub</span></a></li>
-        <li><a href="#contato" data-close="1"><span class="n">04</span><span class="t">Contato</span></a></li>
+        <li><a data-go="contato" role="link" tabindex="0" data-close="1"><span class="n">04</span><span class="t">Contato</span></a></li>
       </ol>
       <p class="menu-sub">Vamos transformar uma ideia em um sistema real.</p>
     </div>
@@ -972,7 +973,7 @@
   <header class="hero">
     <h1 class="hero-name display">Diego <span>Alencar</span> Chaves</h1>
     <img src="foto.webp" alt="Foto de Diego Alencar Chaves" width="1254" height="1254">
-    <a class="meta status" href="#contato"><span class="dot" aria-hidden="true"></span>Disponível para trabalhos</a>
+    <a class="meta status" data-go="contato" role="link" tabindex="0"><span class="dot" aria-hidden="true"></span>Disponível para trabalhos</a>
   </header>
 
 
@@ -1110,7 +1111,7 @@
   var btn=document.getElementById("menuBtn"), ov=document.getElementById("menuOverlay");
   function setOpen(open){ btn.classList.toggle("is-open",open); ov.classList.toggle("is-open",open); btn.setAttribute("aria-expanded",open); btn.setAttribute("aria-label",open?"Fechar menu":"Abrir menu"); ov.setAttribute("aria-hidden",!open); }
   btn.addEventListener("click",function(){ setOpen(!ov.classList.contains("is-open")); });
-  document.querySelectorAll("[data-close]").forEach(function(a){ a.addEventListener("click",function(e){ var el=document.getElementById(a.getAttribute("href").slice(1)); setOpen(false); if(el){ e.preventDefault(); setTimeout(function(){ el.scrollIntoView({behavior:"smooth"}); },350); } }); });
+  document.querySelectorAll("[data-go]").forEach(function(a){ function go(e){ e.preventDefault(); var el=document.getElementById(a.getAttribute("data-go")); var inMenu=a.hasAttribute("data-close"); if(inMenu) setOpen(false); if(el) setTimeout(function(){ el.scrollIntoView({behavior:"smooth"}); }, inMenu?350:0); } a.addEventListener("click",go); a.addEventListener("keydown",function(e){ if(e.key==="Enter") go(e); }); });
   document.addEventListener("keydown",function(e){ if(e.key==="Escape") setOpen(false); });
 })();
 </script>
