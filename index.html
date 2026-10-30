@@ -694,7 +694,7 @@
     .menu-sub { margin-top: 22px; font-size: 0.9rem; color: #8a877e; }
     /* Phone: the old top pill is no longer used; keep the menu button clear of content. */
     /* Projects: alternating rows, each with a laptop frame and a short description. */
-    .projects { background: #15130f; color: #f2efe6; margin-top: 88px; padding: 56px 0 24px; animation: none !important; opacity: 1 !important; }
+    .projects { background: #15130f; color: #f2efe6; margin-top: 88px; padding: 56px max(24px, calc((100vw - 1120px) / 2 + 16px)) 24px; width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); border-radius: 0; animation: none !important; opacity: 1 !important; }
     .projects .label { color: #8a877e; }
     .proj { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; padding: 56px 0; border-top: 1px solid #2c2a25; }
     .proj.rev { grid-template-columns: 1.25fr 1fr; }
