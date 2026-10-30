@@ -988,6 +988,10 @@
       #contato.cv2 .circle { right: 0; width: 128px; height: 128px; font-size: 0.7rem; }
       #contato.cv2 .btn-outline { flex: 1 1 100%; justify-content: center; }
     }
+    /* Availability badge: dot lines up with the left edge of the name, centered on the text. */
+    .hero .meta.status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .hero .meta.status .dot { margin-right: 0; flex: none; }
+    @media (max-width: 760px) { .hero .meta.status { left: 16px; } }
 </style>
 </head>
 <body>
