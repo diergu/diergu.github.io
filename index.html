@@ -919,7 +919,41 @@
     .proj-idx { color: var(--muted) !important; }
     .proj-desc { color: var(--muted) !important; }
     .proj-tags li { color: var(--ink) !important; border-color: var(--rule) !important; }
-  </style>
+      /* Projects motion: reveal on scroll, 3D tilt and screen zoom on hover, custom cursor, lightbox. */
+    .proj-text > * { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+    .proj.in .proj-text > * { opacity: 1; transform: none; }
+    .proj.in .proj-text > :nth-child(2) { transition-delay: .08s; }
+    .proj.in .proj-text > :nth-child(3) { transition-delay: .16s; }
+    .proj.in .proj-text > :nth-child(4) { transition-delay: .24s; }
+    .proj-tags li { transition: background .3s, color .3s, border-color .3s, transform .3s; }
+    .proj-tags li:hover { background: #1f5b3e; color: #f2efe6 !important; border-color: #1f5b3e !important; transform: translateY(-2px); }
+    .proj h3 { text-decoration: underline 3px transparent; text-underline-offset: 8px; transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1), color .4s, text-decoration-color .4s; }
+    .proj:hover h3 { color: #1f5b3e; text-decoration-color: #1f5b3e; }
+    .laptop { perspective: 1400px; opacity: 0; transform: translateX(60px) scale(.94); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+    .proj.rev .laptop { transform: translateX(-60px) scale(.94); }
+    .proj.in .laptop { opacity: 1; transform: none; }
+    .laptop .device { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transform-style: preserve-3d; transition: transform .5s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+    .laptop .lid { transition: box-shadow .5s; }
+    .laptop:hover .lid { box-shadow: 0 50px 90px rgba(31, 91, 62, 0.28); }
+    .laptop .screen { overflow: hidden; border-radius: 6px; position: relative; clip-path: inset(0 0 100% 0); transition: clip-path 1.1s cubic-bezier(.7,0,.2,1) .25s; }
+    .proj.in .laptop .screen { clip-path: inset(0 0 0 0); }
+    .laptop .screen img { border-radius: 0 !important; transform: scale(1.001); transition: transform 1.2s cubic-bezier(.2,.7,.2,1); transform-origin: var(--ox, 50%) var(--oy, 50%); }
+    .laptop:hover .screen img { transform: scale(1.14); }
+    .laptop .screen::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.14) 48%, transparent 62%); transform: translateX(-120%); transition: transform 1s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+    .laptop:hover .screen::after { transform: translateX(120%); }
+    @media (pointer: fine) { .laptop { cursor: none; } }
+    .proj-cursor { position: fixed; left: 0; top: 0; z-index: 80; width: 108px; height: 108px; margin: -54px 0 0 -54px; border-radius: 50%; background: #1f5b3e; color: #f2efe6; display: grid; place-items: center; text-align: center; font: 600 .78rem/1.2 Inter, system-ui, sans-serif; letter-spacing: .06em; text-transform: uppercase; pointer-events: none; transform: translate3d(var(--cx, -200px), var(--cy, -200px), 0) scale(0); transition: transform .35s cubic-bezier(.2,.7,.2,1); box-shadow: 0 12px 30px rgba(31, 91, 62, .35); }
+    .proj-cursor.on { transform: translate3d(var(--cx), var(--cy), 0) scale(1); }
+    .proj-cursor svg { display: block; margin: 0 auto 4px; }
+    .lightbox { position: fixed; inset: 0; z-index: 90; background: rgba(21, 19, 15, .86); backdrop-filter: blur(8px); display: grid; place-items: center; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); opacity: 0; visibility: hidden; transition: opacity .4s, visibility .4s; cursor: zoom-out; }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox img { max-width: min(1100px, 100%); max-height: 86vh; border-radius: 12px; box-shadow: 0 40px 100px rgba(0,0,0,.5); transform: scale(.85) translateY(30px); transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+    .lightbox.open img { transform: none; }
+    .lightbox p { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: #b9b5aa; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
+    @media (prefers-reduced-motion: reduce) {
+      .proj-text > *, .laptop, .laptop .screen, .laptop .device, .laptop .screen img { transition: none !important; transform: none !important; opacity: 1 !important; clip-path: none !important; }
+    }
+</style>
 </head>
 <body>
   <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
@@ -954,8 +988,7 @@
           <ul class="proj-tags"><li>Java 17</li><li>Spring Boot</li><li>Angular</li><li>MySQL</li><li>Bootstrap</li></ul>
         </div>
         <figure class="laptop">
-          <div class="lid"><img src="maquete-gestao-tarefas.png" alt="Ilustração do Sistema de Gerenciamento de Tarefas"></div>
-          <div class="base"></div>
+          <div class="device"><div class="lid"><div class="screen"><img src="maquete-gestao-tarefas.png" alt="Ilustração do Sistema de Gerenciamento de Tarefas"></div></div><div class="base"></div></div>
         </figure>
       </article>
 
@@ -967,8 +1000,7 @@
           <ul class="proj-tags"><li>Java 17</li><li>Spring Boot</li><li>PostgreSQL</li><li>JPA / Hibernate</li><li>Maven</li></ul>
         </div>
         <figure class="laptop">
-          <div class="lid"><img src="maquete-api-clientes.png" alt="Ilustração da API de Cadastro de Clientes"></div>
-          <div class="base"></div>
+          <div class="device"><div class="lid"><div class="screen"><img src="maquete-api-clientes.png" alt="Ilustração da API de Cadastro de Clientes"></div></div><div class="base"></div></div>
         </figure>
       </article>
 
@@ -980,8 +1012,7 @@
           <ul class="proj-tags"><li>Angular 17</li><li>Angular Material</li><li>TypeScript</li><li>json-server</li></ul>
         </div>
         <figure class="laptop">
-          <div class="lid"><img src="maquete-dashboard-estoque.png" alt="Ilustração do Dashboard de Controle de Estoque"></div>
-          <div class="base"></div>
+          <div class="device"><div class="lid"><div class="screen"><img src="maquete-dashboard-estoque.png" alt="Ilustração do Dashboard de Controle de Estoque"></div></div><div class="base"></div></div>
         </figure>
       </article>
     </section>
@@ -1084,6 +1115,61 @@
   btn.addEventListener("click",function(){ setOpen(!ov.classList.contains("is-open")); });
   document.querySelectorAll("[data-close]").forEach(function(a){ a.addEventListener("click",function(e){ var el=document.getElementById(a.getAttribute("href").slice(1)); setOpen(false); if(el){ e.preventDefault(); setTimeout(function(){ el.scrollIntoView({behavior:"smooth"}); },350); } }); });
   document.addEventListener("keydown",function(e){ if(e.key==="Escape") setOpen(false); });
+})();
+</script>
+<div class="proj-cursor" id="projCursor" aria-hidden="true"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>Ampliar</span></div>
+<div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""><p>Clique ou Esc para fechar</p></div>
+<script>
+(function () {
+  var projs = document.querySelectorAll(".proj");
+  // Reveal each project as it enters the viewport.
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    projs.forEach(function (p) { io.observe(p); });
+  } else {
+    projs.forEach(function (p) { p.classList.add("in"); });
+  }
+
+  var cursor = document.getElementById("projCursor");
+  var box = document.getElementById("lightbox");
+  var boxImg = box.querySelector("img");
+  var fine = window.matchMedia("(pointer: fine)").matches;
+
+  document.querySelectorAll(".laptop").forEach(function (lap) {
+    var device = lap.querySelector(".device");
+    var img = lap.querySelector("img");
+    lap.addEventListener("mousemove", function (ev) {
+      var r = lap.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+      device.style.setProperty("--ry", ((x - 0.5) * 10).toFixed(2) + "deg");
+      device.style.setProperty("--rx", ((0.5 - y) * 8).toFixed(2) + "deg");
+      img.style.setProperty("--ox", (x * 100).toFixed(1) + "%");
+      img.style.setProperty("--oy", (y * 100).toFixed(1) + "%");
+      if (fine) {
+        cursor.style.setProperty("--cx", ev.clientX + "px");
+        cursor.style.setProperty("--cy", ev.clientY + "px");
+        cursor.classList.add("on");
+      }
+    });
+    lap.addEventListener("mouseleave", function () {
+      device.style.setProperty("--rx", "0deg");
+      device.style.setProperty("--ry", "0deg");
+      cursor.classList.remove("on");
+    });
+    lap.addEventListener("click", function () {
+      boxImg.src = img.src;
+      boxImg.alt = img.alt;
+      box.classList.add("open");
+      box.setAttribute("aria-hidden", "false");
+      cursor.classList.remove("on");
+    });
+  });
+
+  function closeBox() { box.classList.remove("open"); box.setAttribute("aria-hidden", "true"); }
+  box.addEventListener("click", closeBox);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeBox(); });
 })();
 </script>
 </body>
